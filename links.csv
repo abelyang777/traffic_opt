@@ -1,0 +1,153 @@
+101,origin,-1,102,3
+102,ordinary,101,103,3
+103,intersectionCell,102,104 304 404,6
+103s,virtual,103,104,3
+103l,virtual,103,404,2
+103r,virtual,103,304,1
+104,ordinary,103s 303l 403r,112,3
+201,origin,-1,202,3
+202,ordinary,214,203,3
+203,intersectionCell,202,204 304 404,7
+203s,virtual,203,204,3
+203l,virtual,203,304,2
+203r,virtual,203,404,2
+204,ordinary,203s 303r 403l,205,3
+205,destination,204,-1,3
+301,origin,-1,302,3
+302,ordinary,301,303,3
+303,intersectionCell,302,104 204 304,6
+303s,virtual,303,304,3
+303l,virtual,303,104,2
+303r,virtual,303,204,1
+304,ordinary,303s 203l 103r,305,3
+305,destination,304,-1,3
+401,origin,-1,402,3
+402,ordinary,401,403,3
+403,intersectionCell,402,104 204 304,5
+403s,virtual,403,404,3
+403l,virtual,403,204,2
+403r,virtual,403,104,1
+404,ordinary,403s 203r 103l,405,3
+405,destination,404,-1,3
+1,intersection,103 203,303 403,
+112,ordinary,104,113,3
+113,intersectionCell,112,114 314 414,6
+113s,virtual,113,114,3
+113l,virtual,113,414,2
+113r,virtual,113,314,1
+114,ordinary,113s 313l 413r,122,3
+211,origin,-1,212,3
+212,ordinary,224,213,3
+213,intersectionCell,212,214 314 414,7
+213s,virtual,213,214,3
+213l,virtual,213,314,2
+213r,virtual,213,414,2
+214,ordinary,213s 313r 413l,202,3
+311,origin,-1,312,3
+312,ordinary,311,313,3
+313,intersectionCell,312,114 214 314,6
+313s,virtual,313,314,3
+313l,virtual,313,114,2
+313r,virtual,313,214,1
+314,ordinary,313s 213l 113r,315,3
+315,destination,314,-1,3
+411,origin,-1,412,3
+412,ordinary,411,413,3
+413,intersectionCell,412,114 214 314,5
+413s,virtual,413,414,3
+413l,virtual,413,214,2
+413r,virtual,413,114,1
+414,ordinary,413s 213r 113l,415,3
+415,destination,414,-1,3
+2,intersection,113 213,313 413,
+122,ordinary,114,123,3
+123,intersectionCell,122,124 324 424,6
+123s,virtual,123,124,3
+123l,virtual,123,424,2
+123r,virtual,123,324,1
+124,ordinary,123s 323l 423r,132,3
+221,origin,-1,222,3
+222,ordinary,234,223,3
+223,intersectionCell,222,224 324 424,7
+223s,virtual,223,224,3
+223l,virtual,223,324,2
+223r,virtual,223,424,2
+224,ordinary,223s 323r 423l,212,3
+225,destination,224,-1,3
+321,origin,-1,322,3
+322,ordinary,321,323,3
+323,intersectionCell,322,124 224 324,6
+323s,virtual,323,324,3
+323l,virtual,323,124,2
+323r,virtual,323,224,1
+324,ordinary,323s 223l 123r,212,3
+421,origin,-1,422,3
+422,ordinary,421,423,3
+423,intersectionCell,422,124 224 324,5
+423s,virtual,423,424,3
+423l,virtual,423,224,2
+423r,virtual,423,124,1
+424,ordinary,423s 223r 123l,425,3
+425,destination,424,-1,3
+3,intersection,123 223,323 423,
+132,ordinary,124,133,3
+133,intersectionCell,132,134 334 434,6
+133s,virtual,133,134,3
+133l,virtual,133,434,2
+133r,virtual,133,334,1
+134,ordinary,133s 333l 433r,142,3
+231,origin,-1,232,3
+232,ordinary,244,233,3
+233,intersectionCell,232,234 334 434,7
+233s,virtual,233,234,3
+233l,virtual,233,334,2
+233r,virtual,233,434,2
+234,ordinary,233s 333r 433l,222,3
+331,origin,-1,332,3
+332,ordinary,331,333,3
+333,intersectionCell,332,134 234 334,6
+333s,virtual,333,334,3
+333l,virtual,333,134,2
+333r,virtual,333,234,1
+334,ordinary,333s 233l 133r,335,3
+335,destination,334,-1,3
+431,origin,-1,432,3
+432,ordinary,431,433,3
+433,intersectionCell,432,134 234 334,5
+433s,virtual,433,434,3
+433l,virtual,433,234,2
+433r,virtual,433,134,1
+434,ordinary,433s 233r 133l,435,3
+435,destination,434,-1,3
+4,intersection,133 233,333 433,
+142,ordinary,134,143,3
+143,intersectionCell,142,144 344 444,6
+143s,virtual,143,144,3
+143l,virtual,143,444,2
+143r,virtual,143,344,1
+144,ordinary,143s 343l 443r,112,3
+241,origin,-1,242,3
+242,ordinary,214,243,3
+243,intersectionCell,242,244 344 444,7
+243s,virtual,243,244,3
+243l,virtual,243,344,2
+243r,virtual,243,444,2
+244,ordinary,243s 343r 443l,232,3
+245,destination,244,-1,3
+341,origin,-1,342,3
+342,ordinary,341,343,3
+343,intersectionCell,342,144 244 344,6
+343s,virtual,343,344,3
+343l,virtual,343,144,2
+343r,virtual,343,244,1
+344,ordinary,343s 243l 143r,345,3
+345,destination,344,-1,3
+441,origin,-1,442,3
+442,ordinary,441,443,3
+443,intersectionCell,442,144 244 344,5
+443s,virtual,443,444,3
+443l,virtual,443,244,2
+443r,virtual,443,144,1
+444,ordinary,443s 243r 143l,445,3
+445,destination,444,-1,3
+5,intersection,143 243,343 443,

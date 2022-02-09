@@ -1,0 +1,12 @@
+e_0_0,intersectionCell,external,w_0_1 n_0_1
+e_0_0s,virtual,e_0_0,w_0_1
+e_0_0r,virtual,e_0_0,n_0_1
+w_0_1,ordinary,e_0_0s n_0_0r,external
+w_0_0,intersectionCell,external,e_0_1 n_0_1
+w_0_0s,virtual,w_0_0,e_0_1
+w_0_0l,virtual,w_0_0,n_0_1
+e_0_1,ordinary,w_0_0s n_0_0l,external
+n_0_1,ordinary,w_0_0l e_0_0r,external
+n_0_0,intersectionCell,external,w_0_1 e_0_1 n_0_1
+n_0_0l,virtual,n_0_0,e_0_1
+n_0_0r,virtual,n_0_0,w_0_1
