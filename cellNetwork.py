@@ -157,10 +157,10 @@ class cellnetwork(object):
 		for line in demand:
 			cell = self.findCell(line[0])
 			cell.jam = 2000
-			cell.D = list(map(int, line[1:]))
+			cell.D = list(map(float, line[1:]))
 	def setOffset(self, offset):
 		f = open(offset, "r")
 		for line in f:
 			line = line.strip("\n").split(",")
 			intersection = self.findIntersection(line[0])
-			intersection.offset = int(line[1])
+			intersection.offset = float(line[1])
