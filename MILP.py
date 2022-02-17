@@ -19,9 +19,9 @@ def createConstraints(model, network):
 			Totalflow += c.y[t]
 	for c in network.intersectionCell:
 		for t in range(1, TIME -1):
-			Totalqueue += c.n[t]
-	m.setObjective(Totalflow, GRB.MAXIMIZE) 
-	# m.setObjective(Totalqueue, GRB.MINIMIZE)
+			Totalqueue += c.n[t] - c.y[t]
+	# m.setObjective(Totalflow, GRB.MAXIMIZE) 
+	m.setObjective(Totalqueue, GRB.MINIMIZE)
 	# cell constraints
 	for t in range(0, TIME - 1):
 		for c in network.all:
@@ -102,7 +102,10 @@ def initialX(model, network, fx):
 	else:
 		for i in fx:
 			oi = network.findIntersection(i)
-			model.addConstr(oi.X[0] == fx[i] + 1)
+			if fx[i] in [0,3]:
+				model.addConstr(oi.X[0] == 0) # temp
+			elif fx[i] in [1,2]:
+				model.addConstr(oi.X[0] == 3)
 	return model
 
 def saveLastN(model, network, TIME):
@@ -120,7 +123,7 @@ def saveLastX(model, network, TIME):
 def saveLog(model):
 	now = datetime.now()
 	current_time = now.strftime("%m%d%H%M")
-	f = open(current_time + "CTMlog.txt", "a")
+	f = open(current_time + model.ModelName + "log.txt", "a")
 	for v in model.getVars():
 		# y0_n_0_0_0 0
 		f.write('%s,%g\n' % (v.varName, v.x))
@@ -129,7 +132,7 @@ def saveoutput(model, network, TIME):
 	now = datetime.now()
 	current_time = now.strftime("%m%d%H%M")
 	out = {}
-	f = open(current_time + "CTMoutput.json", "w")
+	f = open(current_time + model.ModelName + "output.json", "w")
 	for i in network.intersection:
 		temp = ["Na" for signal in range(TIME)]
 		for index in range(TIME):
@@ -143,6 +146,7 @@ def saveoutput(model, network, TIME):
 				temp[index] = "wvr"
 		out[i.id] = temp
 	json.dump(out, f)
+	# model.write(current_time + "CTMoutput.sol")
 	return saveoutput
 
 def createNetwork(model, file, network):
@@ -192,7 +196,7 @@ def createData(model, network_file, ratio, D, start, end):
 	ratio = []
 	for line in f:
 		line = line.strip("\n").split(",")
-		if line[0] <= str(start) and line[1] >= str(end):
+		if int(line[0]) <= start and int(line[1]) >= end:
 			ratio.append([line[2], line[3]])
 	network.setRatio(ratio)
 	# D
@@ -210,45 +214,49 @@ def createData(model, network_file, ratio, D, start, end):
 	network.setInflow(demand)
 	return network
 
-start = 0
-end = 40
-TIME = end - start
 
+rounds = 3
+TIME = 40
 m = Model("MILP") # create model
-network = createData(m, "network.json", "turn_ratio.csv", "D.csv", start, end)
 
 lastnfile = open("lastn.json","r")
 lastn = json.load(lastnfile)
-
 lastxfile = open("lastx.json","r")
 lastx = json.load(lastxfile)
 
-m = initialX(m, network, lastx)
-m = initialN(m, network, lastn)
+# lastx, lastn = None, None
 
-network.setOffset("offset.csv")
+for i in range(rounds):
+	start = TIME * i
+	end = TIME + start
 
-m = createConstraints(m, network) # set up constraints
-m.Params.timeLimit = 180 # 30 seconds
-m.Params.MIPfocus = 1 # focus on finding the solution, 3 focus on bound
-m.Params.MIPGap = 0.1 # gap at 10%
+	m = Model("MILP" + str(i)) # create model
 
-try:
-	m.optimize()
-except GurobiError as e:
-	print('Error code ' + str(e.errno) + ": " + str(e))
+	network = createData(m, "network.json", "turn_ratio.csv", "D.csv", start, end)
+	network.setOffset("offset.csv")
 
-saveLog(m)
-saveoutput(m, network, TIME)
+	m = initialX(m, network, lastx)
+	m = initialN(m, network, lastn)
+	m = createConstraints(m, network) # set up constraints
+	m.Params.timeLimit = 400
+	m.Params.MIPfocus = 1 # focus on finding the solution, 3 focus on bound
+	m.Params.MIPGap = 0.1 # gap at 10%
 
+	try:
+		m.optimize()
+	except GurobiError as e:
+		print('Error code ' + str(e.errno) + ": " + str(e))
 
-'''
-lastjson = open("lastx.json","w")
-lastx = saveLastX(m, network, TIME)
-json.dump(lastx, lastjson)
+	saveLog(m)
+	saveoutput(m, network, TIME)
+	lastx = saveLastX(m, network, TIME)
+	lastn = saveLastN(m, network, TIME)
+	'''
+	lastjson = open("lastx.json","w")
+	lastx = saveLastX(m, network, TIME)
+	json.dump(lastx, lastjson)
 
-
-lastjson = open("lastn.json","w")
-lastn = saveLastN(m, network, TIME)
-json.dump(lastn, lastjson)
-'''
+	lastjson = open("lastn.json","w")
+	lastn = saveLastN(m, network, TIME)
+	json.dump(lastn, lastjson)
+	'''
